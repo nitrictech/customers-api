@@ -1,0 +1,56 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Customer API
+  description: Customer API
+paths:
+  /customers:
+    get:
+      operationId: customers-list
+      x-nitric-target:
+        name: list
+        type: function
+      description: Retrieve all customers
+      responses:
+        "200":
+          description: Successful response
+    post:
+      operationId: customers-create
+      x-nitric-target:
+        name: create
+        type: function
+      description: Creates and persists new customers
+      responses:
+        "200":
+          description: Successful response
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CustomersCreate"
+  /customers/{customerId}:
+    get:
+      operationId: customers-read
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: string
+          required: true
+      x-nitric-target:
+        name: read
+        type: function
+      description: Retrieve an existing customer by its ID
+      responses:
+        "200":
+          description: Successful response
+components:
+  schemas:
+    CustomersCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
